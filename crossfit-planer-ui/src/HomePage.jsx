@@ -12,6 +12,13 @@ const HomePage = () => {
             Template
         </span>
         </Link>
+        <Link
+        to='/exercise'
+        >
+            <span>
+                Exercise
+            </span>
+        </Link>
         <h1>Crossfit Planer UI</h1>
     </div>
   )

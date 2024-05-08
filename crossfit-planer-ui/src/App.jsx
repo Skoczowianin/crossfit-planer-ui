@@ -3,6 +3,7 @@ import Template from './Template'
 import { useState } from 'react'
 import MainLayout from './MainLayout';
 import HomePage from './HomePage';
+import Exercise from './Exercise';
 
 
 const router = createBrowserRouter(
@@ -10,7 +11,8 @@ const router = createBrowserRouter(
     <Route path='/' element={<MainLayout />}>
       <Route index element={<HomePage />}/>
       <Route path='/template' element={<Template />} />
-  </Route>
+      <Route path='/exercise' element={<Exercise />} />
+    </Route>
 )
 );
 
