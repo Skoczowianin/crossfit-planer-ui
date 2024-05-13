@@ -3,13 +3,18 @@ import Exercise from "./Exercise";
 import "./template.css";
 
 const Template = () => {
-  const [showForm, setShowForm] = useState(false);
+  const [createForm, setCreateForm] = useState(false);
   const [exercises, setExercises] = useState([]);
 
+  const [editForm, setEditForm] = useState(false);
+  const [currentExercise, setCurrentExercise] = useState(null);
 
-  function displayForm() {
-    setShowForm(true);
+  function displayCreateForm() {
+    setCreateForm(true);
 
+  }
+  function displayEditFOrm() {
+    setEditForm(true);
   }
 
   function handleAddExercise(event) {
@@ -28,22 +33,32 @@ const Template = () => {
     };
 
     setExercises([...exercises, newExercise]);
-    setShowForm(false);
+    setCreateForm(false);
     form.reset();
   }
 
-  function hideForm() {
-    setShowForm(false);
+  function hideCreateForm() {
+    setCreateForm(false);
+  }
+  function hideEditForm() {
+    setEditForm(false);
   }
 
   function removeExercise(id) {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
   }
-  function handleEdit() {
-    
+  function handleEdit(id) {
+    const editExercise = exercises.filter((exercise)=>exercise.id ==id)[0];
+    setCurrentExercise(editExercise);
+
+    console.log(id, editExercise);
+    setEditForm(true);
   }
-  
+  function handleEditSubmit(id) {
+   // const editSubmit = 
+  }
+  console.log(currentExercise)
   return (
     <div className="template-container">
       <h2>Miki Training</h2>
@@ -64,9 +79,9 @@ const Template = () => {
         ))}
       </div>
       <div className="adding-exercise">
-        <button onClick={displayForm}>Add Exercise</button>
+        <button onClick={displayCreateForm}>Add Exercise</button>
       </div>
-      {showForm && (
+      {createForm && (
         <form className="form-container" onSubmit={handleAddExercise}>
           <input type="text" name="title" placeholder="Title" />
           <br />
@@ -89,7 +104,38 @@ const Template = () => {
           <br />
           <div className="button-space">
             <button type="submit">Add</button>
-            <button type="button" onClick={hideForm}>
+            <button type="button" onClick={hideCreateForm}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
+
+{editForm && (
+        <form className="form-container" onSubmit={handleEditSubmit}>
+          <input type="text" name="title" placeholder="Title" value={currentExercise.title} />
+          <br />
+          <input type="text" name="description" placeholder="Description" value={currentExercise.description}/>
+          <br />
+          <select name="type">
+            <option value="repetitions">Repetitions</option>
+            <option value="seconds">Seconds</option>
+          </select>
+          <br />
+          <input
+            type="number"
+            name="value"
+            value={currentExercise.value}
+            placeholder="Number of repetitions or seconds"
+            min={1}
+          />
+          <br />
+          <input type="file" name="image" accept="image/*" filename={currentExercise.image} />
+          <br />
+          <br />
+          <div className="button-space">
+            <button type="submit" onSubmit={handleEditSubmit}>Save</button>
+            <button type="button" onClick={hideEditForm}>
               Cancel
             </button>
           </div>
