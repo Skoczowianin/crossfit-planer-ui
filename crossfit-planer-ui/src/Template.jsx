@@ -6,8 +6,10 @@ const Template = () => {
   const [showForm, setShowForm] = useState(false);
   const [exercises, setExercises] = useState([]);
 
+
   function displayForm() {
     setShowForm(true);
+
   }
 
   function handleAddExercise(event) {
@@ -38,7 +40,10 @@ const Template = () => {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
   }
-
+  function handleEdit() {
+    
+  }
+  
   return (
     <div className="template-container">
       <h2>Miki Training</h2>
@@ -54,6 +59,7 @@ const Template = () => {
               type={exercise.type}
             />
             <button onClick={() => removeExercise(exercise.id)}>Delete</button>
+            <button onClick={() =>handleEdit(exercise.id)}>Edit</button>
           </div>
         ))}
       </div>
