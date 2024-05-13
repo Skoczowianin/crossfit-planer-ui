@@ -7,7 +7,7 @@
 }
 
 .form-container {
-  background-color: #f0f0f0;
+  background-color: #d1c0e3;
   padding: 20px;
   border-radius: 5px;
 }
@@ -20,6 +20,7 @@
 }
 .adding-exercise {
   color: #56647a;
+  margin: 20px 0;
 }
 input,select {
   margin-left: 40px;

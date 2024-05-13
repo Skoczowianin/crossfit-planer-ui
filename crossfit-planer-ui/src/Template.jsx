@@ -30,7 +30,7 @@ const Template = () => {
     form.reset();
   }
 
-  function cancelAddExercise() {
+  function hideForm() {
     setShowForm(false);
   }
 
@@ -83,7 +83,7 @@ const Template = () => {
           <br />
           <div className="button-space">
             <button type="submit">Add</button>
-            <button type="button" onClick={cancelAddExercise}>
+            <button type="button" onClick={hideForm}>
               Cancel
             </button>
           </div>
