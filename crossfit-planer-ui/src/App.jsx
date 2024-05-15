@@ -1,9 +1,9 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom'
 import Template from './Template'
-import { useState } from 'react'
 import MainLayout from './MainLayout';
 import HomePage from './HomePage';
 import Exercise from './Exercise';
+
 
 
 const router = createBrowserRouter(
