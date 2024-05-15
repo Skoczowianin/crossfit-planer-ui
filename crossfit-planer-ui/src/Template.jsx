@@ -17,7 +17,7 @@ const Template = () => {
     setEditForm(true);
   }
 
-  function handleAddExercise(event) {
+  function handleCreateExercise(event) {
     event.preventDefault();
 
     const form = event.target;
@@ -52,7 +52,6 @@ const Template = () => {
     const editExercise = exercises.filter((exercise)=>exercise.id ==id)[0];
     setCurrentExercise(editExercise);
 
-    console.log(id, editExercise);
     setEditForm(true);
   }
   function handleEditSubmit(event) {
@@ -75,11 +74,11 @@ const Template = () => {
       const updatedExercises = exercises.map((exercise) =>
       exercise.id === currentExercise.id ? updatedExercise : exercise
   );
-    setExercises(updatedExercises);
+    setExercises(updatedExercises); 
     setEditForm(false);
     setCurrentExercise(null);
   }
-  console.log(currentExercise)
+ 
   return (
     <div className="template-container">
       <h2>Miki Training</h2>
@@ -103,12 +102,12 @@ const Template = () => {
         <button onClick={displayCreateForm}>Add Exercise</button>
       </div>
       {createForm && (
-        <form className="form-container" onSubmit={handleAddExercise}>
+        <form className="form-container" onSubmit={handleCreateExercise}>
           <input type="text" name="title" placeholder="Title" />
           <br />
           <input type="text" name="description" placeholder="Description" />
           <br />
-          <select name="type" >
+          <select name="type">
             <option value="repetitions">Repetitions</option>
             <option value="seconds">Seconds</option>
           </select>
