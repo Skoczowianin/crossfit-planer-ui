@@ -3,14 +3,21 @@ import Exercise from "./Exercise";
 import "./template.css";
 
 const Template = () => {
-  const [showForm, setShowForm] = useState(false);
+  const [createForm, setCreateForm] = useState(false);
   const [exercises, setExercises] = useState([]);
 
-  function displayForm() {
-    setShowForm(true);
+  const [editForm, setEditForm] = useState(false);
+  const [currentExercise, setCurrentExercise] = useState(null);
+
+  function displayCreateForm() {
+    setCreateForm(true);
+
+  }
+  function displayEditFOrm() {
+    setEditForm(true);
   }
 
-  function handleAddExercise(event) {
+  function handleCreateExercise(event) {
     event.preventDefault();
 
     const form = event.target;
@@ -26,19 +33,52 @@ const Template = () => {
     };
 
     setExercises([...exercises, newExercise]);
-    setShowForm(false);
+    setCreateForm(false);
     form.reset();
   }
 
-  function hideForm() {
-    setShowForm(false);
+  function hideCreateForm() {
+    setCreateForm(false);
+  }
+  function hideEditForm() {
+    setEditForm(false);
   }
 
   function removeExercise(id) {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
   }
+  function handleEdit(id) {
+    const editExercise = exercises.filter((exercise)=>exercise.id ==id)[0];
+    setCurrentExercise(editExercise);
 
+    setEditForm(true);
+  }
+  function handleEditSubmit(event) {
+   event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    
+    const updatedExercise = {
+      ...currentExercise,
+      title: formData.get("title"),
+      description: formData.get("description"),
+      type: formData.get("type"),
+      value: formData.get("value"),
+      image: URL.createObjectURL(formData.get("image")),
+    };
+   
+
+      const updatedExercises = exercises.map((exercise) =>
+      exercise.id === currentExercise.id ? updatedExercise : exercise
+  );
+    setExercises(updatedExercises); 
+    setEditForm(false);
+    setCurrentExercise(null);
+  }
+ 
   return (
     <div className="template-container">
       <h2>Miki Training</h2>
@@ -54,14 +94,15 @@ const Template = () => {
               type={exercise.type}
             />
             <button onClick={() => removeExercise(exercise.id)}>Delete</button>
+            <button onClick={() =>handleEdit(exercise.id)}>Edit</button>
           </div>
         ))}
       </div>
       <div className="adding-exercise">
-        <button onClick={displayForm}>Add Exercise</button>
+        <button onClick={displayCreateForm}>Add Exercise</button>
       </div>
-      {showForm && (
-        <form className="form-container" onSubmit={handleAddExercise}>
+      {createForm && (
+        <form className="form-container" onSubmit={handleCreateExercise}>
           <input type="text" name="title" placeholder="Title" />
           <br />
           <input type="text" name="description" placeholder="Description" />
@@ -83,7 +124,38 @@ const Template = () => {
           <br />
           <div className="button-space">
             <button type="submit">Add</button>
-            <button type="button" onClick={hideForm}>
+            <button type="button" onClick={hideCreateForm}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
+
+{editForm && (
+        <form className="form-container" onSubmit={handleEditSubmit}>
+          <input type="text" name="title" placeholder="Title" defaultValue={currentExercise.title} />
+          <br />
+          <input type="text" name="description" placeholder="Description" defaultValue={currentExercise.description}/>
+          <br />
+          <select name="type" defaultValue={currentExercise.type}>
+            <option value="repetitions">Repetitions</option>
+            <option value="seconds">Seconds</option>
+          </select>
+          <br />
+          <input
+            type="number"
+            name="value"
+            defaultValue={currentExercise.value}
+            placeholder="Number of repetitions or seconds"
+            min={1}
+          />
+          <br />
+          <input type="file" name="image" accept="image/*" filename={currentExercise.image} />
+          <br />
+          <br />
+          <div className="button-space">
+            <button type="submit" onSubmit={handleEditSubmit}>Save</button>
+            <button type="button" onClick={hideEditForm}>
               Cancel
             </button>
           </div>
