@@ -55,8 +55,29 @@ const Template = () => {
     console.log(id, editExercise);
     setEditForm(true);
   }
-  function handleEditSubmit(id) {
-   // const editSubmit = 
+  function handleEditSubmit(event) {
+   event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    
+    const updatedExercise = {
+      ...currentExercise,
+      title: formData.get("title"),
+      description: formData.get("description"),
+      type: formData.get("type"),
+      value: formData.get("value"),
+      image: URL.createObjectURL(formData.get("image")),
+    };
+   
+
+      const updatedExercises = exercises.map((exercise) =>
+      exercise.id === currentExercise.id ? updatedExercise : exercise
+  );
+    setExercises(updatedExercises);
+    setEditForm(false);
+    setCurrentExercise(null);
   }
   console.log(currentExercise)
   return (
@@ -87,7 +108,7 @@ const Template = () => {
           <br />
           <input type="text" name="description" placeholder="Description" />
           <br />
-          <select name="type">
+          <select name="type" >
             <option value="repetitions">Repetitions</option>
             <option value="seconds">Seconds</option>
           </select>
@@ -113,11 +134,11 @@ const Template = () => {
 
 {editForm && (
         <form className="form-container" onSubmit={handleEditSubmit}>
-          <input type="text" name="title" placeholder="Title" value={currentExercise.title} />
+          <input type="text" name="title" placeholder="Title" defaultValue={currentExercise.title} />
           <br />
-          <input type="text" name="description" placeholder="Description" value={currentExercise.description}/>
+          <input type="text" name="description" placeholder="Description" defaultValue={currentExercise.description}/>
           <br />
-          <select name="type">
+          <select name="type" defaultValue={currentExercise.type}>
             <option value="repetitions">Repetitions</option>
             <option value="seconds">Seconds</option>
           </select>
@@ -125,7 +146,7 @@ const Template = () => {
           <input
             type="number"
             name="value"
-            value={currentExercise.value}
+            defaultValue={currentExercise.value}
             placeholder="Number of repetitions or seconds"
             min={1}
           />
