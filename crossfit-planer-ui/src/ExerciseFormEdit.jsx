@@ -38,4 +38,4 @@ const ExerciseFormEdit = ({handleEditSubmit, hideEditForm, currentExercise}) => 
   )
 }
 
-export default ExerciseFormEdit
+export default ExerciseFormEdit;

@@ -39,4 +39,4 @@ const ExerciseFormCreate = ({hideCreateForm, handleCreateExercise}) => {
 }
 
 
-export default ExerciseFormCreate
+export default ExerciseFormCreate;
