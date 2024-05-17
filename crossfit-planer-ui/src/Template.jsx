@@ -10,6 +10,7 @@ const Template = () => {
   const [exercises, setExercises] = useState([]);
   const [createForm, setCreateForm] = useState(false);
 
+  //create form
   function displayCreateForm() {
     setCreateForm(true)
   }
@@ -18,14 +19,42 @@ const Template = () => {
     setCreateForm(false);
   }
 
-  function displayEditFOrm() {
+  
+  function handleCreateExercise(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    const newExercise = {
+      id: Date.now(),
+      title: formData.get("title"),
+      description: formData.get("description"),
+      type: formData.get("type"),
+      value: formData.get("value"),
+      image: URL.createObjectURL(formData.get("image")),
+    }
+    
+    setExercises([...exercises, newExercise]);
+    setCreateForm(false);
+    form.reset();
+}
+  
+ //editform
+  function displayEditForm() {
     setEditForm(true);
   }
-
 
   function hideEditForm() {
     setEditForm(false);
   }
+
+  //remove exercise
+  function removeExercise(id) {
+    const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
+    setExercises(updatedExercises);
+  }
+
 
 
   
@@ -40,7 +69,6 @@ const Template = () => {
 
     const form = event.target;
     const formData = new FormData(form);
-
     
     const updatedExercise = {
       ...currentExercise,
@@ -50,9 +78,8 @@ const Template = () => {
       value: formData.get("value"),
       image: URL.createObjectURL(formData.get("image")),
     };
-   
 
-      const updatedExercises = exercises.map((exercise) =>
+    const updatedExercises = exercises.map((exercise) =>
       exercise.id === currentExercise.id ? updatedExercise : exercise
   );
     setExercises(updatedExercises); 
@@ -65,8 +92,26 @@ const Template = () => {
       <h2>Miki Training</h2>
       <div>In this page I will show you some exercises</div>
       <button onClick={displayCreateForm}>Add Exercise</button>
-      {createForm && <ExerciseFormCreate visible={createForm} />} 
-{editForm && (
+
+      <div>
+        {exercises.map((exercise, index) => (
+          <div key={exercise.id}>
+            <Exercise
+              image={exercise.image}
+              title={exercise.title}
+              description={exercise.description}
+              value={exercise.value}
+              type={exercise.type}
+            />
+            <button onClick={() => removeExercise(exercise.id)}>Delete</button>
+            <button onClick={() =>handleEdit(exercise.id)}>Edit</button>
+          </div>
+        ))}
+      </div>
+
+      {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
+
+      {editForm && (
         <form className="form-container" onSubmit={handleEditSubmit}>
           <input type="text" name="title" placeholder="Title" defaultValue={currentExercise.title} />
           <br />

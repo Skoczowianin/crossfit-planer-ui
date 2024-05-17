@@ -1,60 +1,10 @@
-import React, { useState} from 'react'
-import Exercise from './Exercise';
+import React from 'react'
 import "./template.css";
 
-const ExerciseFormCreate = () => {
+const ExerciseFormCreate = ({hideCreateForm, handleCreateExercise}) => {
 
-const [exercises, setExercises] = useState([]);
-
-function hideCreateForm() {
-    setCreateForm(false);
-  }
-  
-function handleCreateExercise(event) {
-    event.preventDefault();
-
-    const form = event.target;
-    const formData = new FormData(form);
-
-    const newExercise = {
-      id: Date.now(),
-      title: formData.get("title"),
-      description: formData.get("description"),
-      type: formData.get("type"),
-      value: formData.get("value"),
-      image: URL.createObjectURL(formData.get("image")),
-    }
-    
-    setExercises([...exercises, newExercise]);
-    setCreateForm(false);
-    form.reset();
-    
-}
-
-function removeExercise(id) {
-    const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
-    setExercises(updatedExercises);
-  }
-  function hideCreateForm() {
-    setCreateForm(false);
-  }
   return (
     <div>
-         <div>
-        {exercises.map((exercise, index) => (
-          <div key={exercise.id}>
-            <Exercise
-              image={exercise.image}
-              title={exercise.title}
-              description={exercise.description}
-              value={exercise.value}
-              type={exercise.type}
-            />
-            <button onClick={() => removeExercise(exercise.id)}>Delete</button>
-            <button onClick={() =>handleEdit(exercise.id)}>Edit</button>
-          </div>
-        ))}
-      </div>
    <div className="adding-exercise">
       </div>
         <form className="form-container" onSubmit={handleCreateExercise}>
