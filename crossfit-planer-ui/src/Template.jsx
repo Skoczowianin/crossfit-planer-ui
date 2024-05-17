@@ -1,22 +1,25 @@
 import React, { useState } from "react";
 import Exercise from "./Exercise";
+import ExerciseFormCreate from "./ExerciseFormCreate";
 import "./template.css";
 
 const Template = () => {
-  const [createForm, setCreateForm] = useState(false);
-  const [exercises, setExercises] = useState([]);
 
   const [editForm, setEditForm] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
+  const [exercises, setExercises] = useState([]);
+  const [createForm, setCreateForm] = useState(false);
 
+  //create form
   function displayCreateForm() {
-    setCreateForm(true);
-
-  }
-  function displayEditFOrm() {
-    setEditForm(true);
+    setCreateForm(true)
   }
 
+  function hideCreateForm() {
+    setCreateForm(false);
+  }
+
+  
   function handleCreateExercise(event) {
     event.preventDefault();
 
@@ -30,24 +33,31 @@ const Template = () => {
       type: formData.get("type"),
       value: formData.get("value"),
       image: URL.createObjectURL(formData.get("image")),
-    };
-
+    }
+    
     setExercises([...exercises, newExercise]);
     setCreateForm(false);
     form.reset();
+}
+  
+ //editform
+  function displayEditForm() {
+    setEditForm(true);
   }
 
-  function hideCreateForm() {
-    setCreateForm(false);
-  }
   function hideEditForm() {
     setEditForm(false);
   }
 
+  //remove exercise
   function removeExercise(id) {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
   }
+
+
+
+  
   function handleEdit(id) {
     const editExercise = exercises.filter((exercise)=>exercise.id ==id)[0];
     setCurrentExercise(editExercise);
@@ -59,7 +69,6 @@ const Template = () => {
 
     const form = event.target;
     const formData = new FormData(form);
-
     
     const updatedExercise = {
       ...currentExercise,
@@ -69,9 +78,8 @@ const Template = () => {
       value: formData.get("value"),
       image: URL.createObjectURL(formData.get("image")),
     };
-   
 
-      const updatedExercises = exercises.map((exercise) =>
+    const updatedExercises = exercises.map((exercise) =>
       exercise.id === currentExercise.id ? updatedExercise : exercise
   );
     setExercises(updatedExercises); 
@@ -83,6 +91,8 @@ const Template = () => {
     <div className="template-container">
       <h2>Miki Training</h2>
       <div>In this page I will show you some exercises</div>
+      <button onClick={displayCreateForm}>Add Exercise</button>
+
       <div>
         {exercises.map((exercise, index) => (
           <div key={exercise.id}>
@@ -98,40 +108,10 @@ const Template = () => {
           </div>
         ))}
       </div>
-      <div className="adding-exercise">
-        <button onClick={displayCreateForm}>Add Exercise</button>
-      </div>
-      {createForm && (
-        <form className="form-container" onSubmit={handleCreateExercise}>
-          <input type="text" name="title" placeholder="Title" />
-          <br />
-          <input type="text" name="description" placeholder="Description" />
-          <br />
-          <select name="type">
-            <option value="repetitions">Repetitions</option>
-            <option value="seconds">Seconds</option>
-          </select>
-          <br />
-          <input
-            type="number"
-            name="value"
-            placeholder="Number of repetitions or seconds"
-            min={1}
-          />
-          <br />
-          <input type="file" name="image" accept="image/*" />
-          <br />
-          <br />
-          <div className="button-space">
-            <button type="submit">Add</button>
-            <button type="button" onClick={hideCreateForm}>
-              Cancel
-            </button>
-          </div>
-        </form>
-      )}
 
-{editForm && (
+      {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
+
+      {editForm && (
         <form className="form-container" onSubmit={handleEditSubmit}>
           <input type="text" name="title" placeholder="Title" defaultValue={currentExercise.title} />
           <br />
