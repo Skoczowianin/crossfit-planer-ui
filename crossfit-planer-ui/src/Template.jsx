@@ -35,8 +35,9 @@ const Template = () => {
       value: formData.get("value"),
       image: URL.createObjectURL(formData.get("image")),
     }
-    
-    setExercises([...exercises, newExercise]);
+    const newExercises = [...exercises, newExercise];
+    setExercises(newExercises);
+    localStorage.setItem("exercises", JSON.stringify(newExercises))
     setCreateForm(false);
     form.reset();
 }
