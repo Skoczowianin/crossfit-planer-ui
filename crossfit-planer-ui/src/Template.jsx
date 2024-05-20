@@ -60,6 +60,7 @@ const Template = () => {
   function removeExercise(id) {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
+    saveExercises(updatedExercises);
   }
 
   function handleEdit(id) {
