@@ -13,7 +13,6 @@ const Template = () => {
   const [createForm, setCreateForm] = useState(false);
 
   useEffect(() => {
-    setUp();
     const storedExercises = JSON.parse(localStorage.getItem("exercises")) || [];
     setExercises(storedExercises);
   }, []);
