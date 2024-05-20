@@ -65,9 +65,6 @@ const Template = () => {
     localStorage.clear();
   }
 
-
-
-  
   function handleEdit(id) {
     const editExercise = exercises.filter((exercise)=>exercise.id ==id)[0];
     setCurrentExercise(editExercise);
