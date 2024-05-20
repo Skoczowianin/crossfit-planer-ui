@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Exercise from "./Exercise";
 import ExerciseFormCreate from "./ExerciseFormCreate";
 import ExerciseFormEdit from "./ExerciseFormEdit";
+import { setUp } from "./LocalStorageSetup";
 import "./template.css";
 
 const Template = () => {
@@ -10,6 +11,12 @@ const Template = () => {
   const [currentExercise, setCurrentExercise] = useState(null);
   const [exercises, setExercises] = useState([]);
   const [createForm, setCreateForm] = useState(false);
+
+  useEffect(() => {
+    setUp();
+    const storedExercises = JSON.parse(localStorage.getItem("exercises")) || [];
+    setExercises(storedExercises);
+  }, []);
 
   //create form
   function displayCreateForm() {
@@ -55,6 +62,7 @@ const Template = () => {
   function removeExercise(id) {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
+    localStorage.clear();
   }
 
 
