@@ -14,11 +14,21 @@ export function setUp() {
             console.log("Local storage parse error")
     }
     
-
-    
-
 }
     function reset() {
         localStorage.setItem("exercises", JSON.stringify([]));
         console.log("Local storage restarted")
     }
+
+export function loadStorage() {
+    try {
+        return JSON.parse(localStorage.getItem("exercises")) || [];   
+    } catch (error) {
+        reset();
+        return [];
+    }
+}
+
+export function saveExercises(newExercises) {
+    localStorage.setItem("exercises", JSON.stringify(newExercises))
+}

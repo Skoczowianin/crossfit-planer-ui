@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Exercise from "./Exercise";
 import ExerciseFormCreate from "./ExerciseFormCreate";
 import ExerciseFormEdit from "./ExerciseFormEdit";
-import { setUp } from "./LocalStorageSetup";
+import { loadStorage, saveExercises } from "./LocalStorageSetup";
 import "./template.css";
 
 const Template = () => {
@@ -13,8 +13,7 @@ const Template = () => {
   const [createForm, setCreateForm] = useState(false);
 
   useEffect(() => {
-    const storedExercises = JSON.parse(localStorage.getItem("exercises")) || [];
-    setExercises(storedExercises);
+    setExercises(loadStorage());
   }, []);
 
   //create form
@@ -43,7 +42,7 @@ const Template = () => {
     }
     const newExercises = [...exercises, newExercise];
     setExercises(newExercises);
-    localStorage.setItem("exercises", JSON.stringify(newExercises))
+    saveExercises(newExercises);
     setCreateForm(false);
     form.reset();
 }
