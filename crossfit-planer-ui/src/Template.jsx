@@ -90,6 +90,7 @@ const Template = () => {
     setExercises(updatedExercises); 
     setEditForm(false);
     setCurrentExercise(null);
+    saveExercises(updatedExercises)
   }
  
   return (
