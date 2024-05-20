@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Exercise from "./Exercise";
 import ExerciseFormCreate from "./ExerciseFormCreate";
 import ExerciseFormEdit from "./ExerciseFormEdit";
+import { loadStorage, saveExercises } from "./LocalStorageSetup";
 import "./template.css";
 
 const Template = () => {
@@ -10,6 +11,10 @@ const Template = () => {
   const [currentExercise, setCurrentExercise] = useState(null);
   const [exercises, setExercises] = useState([]);
   const [createForm, setCreateForm] = useState(false);
+
+  useEffect(() => {
+    setExercises(loadStorage());
+  }, []);
 
   //create form
   function displayCreateForm() {
@@ -35,8 +40,9 @@ const Template = () => {
       value: formData.get("value"),
       image: URL.createObjectURL(formData.get("image")),
     }
-    
-    setExercises([...exercises, newExercise]);
+    const newExercises = [...exercises, newExercise];
+    setExercises(newExercises);
+    saveExercises(newExercises);
     setCreateForm(false);
     form.reset();
 }
@@ -56,9 +62,6 @@ const Template = () => {
     setExercises(updatedExercises);
   }
 
-
-
-  
   function handleEdit(id) {
     const editExercise = exercises.filter((exercise)=>exercise.id ==id)[0];
     setCurrentExercise(editExercise);
