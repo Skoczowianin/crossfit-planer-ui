@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Exercise from "./Exercise";
 import ExerciseFormCreate from "./ExerciseFormCreate";
 import ExerciseFormEdit from "./ExerciseFormEdit";
-import { loadStorage, saveExercises } from "./LocalStorageSetup";
+import { loadStorage, saveExercises, saveCompletedExercise } from "./LocalStorageSetup";
 import RemovePopUp from "./RemovePopUp";
 import "./template.css";
 
@@ -14,6 +14,16 @@ const Training = () => {
   const [createForm, setCreateForm] = useState(false);
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [exerciseId, setExerciseId] = useState(null);
+  const [color, setColor] = useState("");
+
+
+  useEffect(() => {
+    if (color) {
+      document.getElementById(`changeColor-${exerciseId}`).style.background = color;
+    } 
+  }, [color, exerciseId]);
+
+  
 
   useEffect(() => {
     setExercises(loadStorage());
@@ -104,6 +114,14 @@ const Training = () => {
     setExerciseId(exerciseId);
     setDisplayPopUp(true);
   }
+  
+  function doubleClick(color, id) {
+    setExerciseId(id);
+    setColor(color);
+    
+  }
+  
+
  
   return (
     <div className="template-container">
@@ -113,8 +131,12 @@ const Training = () => {
 
       <div>
         {exercises.map((exercise, index) => (
-          <div key={exercise.id}>
-            <Exercise
+          <div key={exercise.id} 
+          id={`changeColor-${exercise.id}`} 
+          className={exercise.completed === true ? "green" : "white"}
+          onDoubleClick={() =>doubleClick("green", exercise.id)}
+          >
+            <Exercise 
               image={exercise.image}
               title={exercise.title}
               description={exercise.description}

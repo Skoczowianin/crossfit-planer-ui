@@ -32,3 +32,7 @@ export function loadStorage() {
 export function saveExercises(newExercises) {
     localStorage.setItem("exercises", JSON.stringify(newExercises))
 }
+
+export function saveCompletedExercise(completedExercises) {
+    
+}

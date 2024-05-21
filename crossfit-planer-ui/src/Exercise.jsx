@@ -1,9 +1,9 @@
 import React from "react";
 import "./exercise.css";
 
-const Exercise = ({ title, description, image, value, type }) => {
+const Exercise = ({ title, description, image, value, type, onDoubleClick}) => {
   return (
-    <div className="exercise">
+    <div className="exercise" onDoubleClick={onDoubleClick}>
       <div>
         <img src={image}></img>
       </div>
