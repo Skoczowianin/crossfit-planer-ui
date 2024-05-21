@@ -5,7 +5,7 @@ import ExerciseFormEdit from "./ExerciseFormEdit";
 import { loadStorage, saveExercises } from "./LocalStorageSetup";
 import "./template.css";
 
-const Template = () => {
+const Training = () => {
 
   const [editForm, setEditForm] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
@@ -122,4 +122,4 @@ const Template = () => {
   );
 };
 
-export default Template;
+export default Training;
