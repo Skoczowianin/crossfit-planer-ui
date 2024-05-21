@@ -3,6 +3,7 @@ import Exercise from "./Exercise";
 import ExerciseFormCreate from "./ExerciseFormCreate";
 import ExerciseFormEdit from "./ExerciseFormEdit";
 import { loadStorage, saveExercises } from "./LocalStorageSetup";
+import RemovePopUp from "./RemovePopUp";
 import "./template.css";
 
 const Training = () => {
@@ -11,6 +12,8 @@ const Training = () => {
   const [currentExercise, setCurrentExercise] = useState(null);
   const [exercises, setExercises] = useState([]);
   const [createForm, setCreateForm] = useState(false);
+  const [displayPopUp, setDisplayPopUp] = useState(false);
+  const [exerciseId, setExerciseId] = useState(null);
 
   useEffect(() => {
     setExercises(loadStorage());
@@ -61,6 +64,7 @@ const Training = () => {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
     saveExercises(updatedExercises);
+    closePopUp();
   }
 
   function handleEdit(id) {
@@ -92,6 +96,14 @@ const Training = () => {
     setCurrentExercise(null);
     saveExercises(updatedExercises)
   }
+  // PopUp
+  function closePopUp() {
+    setDisplayPopUp(false);
+  }
+  function openPopUp(exerciseId) {
+    setExerciseId(exerciseId);
+    setDisplayPopUp(true);
+  }
  
   return (
     <div className="template-container">
@@ -109,7 +121,7 @@ const Training = () => {
               value={exercise.value}
               type={exercise.type}
             />
-            <button onClick={() => removeExercise(exercise.id)}>Delete</button>
+            <button onClick={() => openPopUp(exercise.id)}>Delete</button>
             <button onClick={() =>handleEdit(exercise.id)}>Edit</button>
           </div>
         ))}
@@ -118,6 +130,7 @@ const Training = () => {
       {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
 
       {editForm && <ExerciseFormEdit hideEditForm={hideEditForm} handleEditSubmit={handleEditSubmit} currentExercise={currentExercise}/>}
+      {displayPopUp && <RemovePopUp closePopUp={closePopUp} deleteExercise={removeExercise} exerciseId={exerciseId}/>}
     </div>
   );
 };
