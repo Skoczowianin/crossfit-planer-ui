@@ -10,10 +10,7 @@ const RemovePopUp = ({closePopUp, deleteExercise, exerciseId}) => {
         <button onClick={closePopUp}>NIE</button>
         </div>
         <div className='overlay'></div>
-    
     </>
- 
-    
   )
 }
 

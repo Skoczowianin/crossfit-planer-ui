@@ -101,10 +101,8 @@ const Training = () => {
     setDisplayPopUp(false);
   }
   function openPopUp(exerciseId) {
-    console.log("Dziala")
     setExerciseId(exerciseId);
     setDisplayPopUp(true);
-    
   }
  
   return (
