@@ -25,4 +25,9 @@
 input,select {
   margin-left: 40px;
 }
-
+.green {
+  background-color: green;
+}
+.default {
+  background-color: #574d4d;
+}

@@ -14,7 +14,7 @@ const Training = () => {
   const [createForm, setCreateForm] = useState(false);
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [exerciseId, setExerciseId] = useState(null);
-
+ 
   useEffect(() => {
     setExercises(loadStorage());
   }, []);
@@ -28,7 +28,6 @@ const Training = () => {
     setCreateForm(false);
   }
 
-  
   function handleCreateExercise(event) {
     event.preventDefault();
 
@@ -104,31 +103,39 @@ const Training = () => {
     setExerciseId(exerciseId);
     setDisplayPopUp(true);
   }
- 
+  
+  function doubleClick(clickedExercise) {
+      const updatedExercise = {
+        ...clickedExercise, 
+        completed: clickedExercise.completed === true ? false : true
+      }
+      const updatedExercises = exercises.map((exercise) => 
+        exercise.id === clickedExercise.id ? updatedExercise : exercise
+    ) 
+  setExercises(updatedExercises);
+  saveExercises(updatedExercises)
+}
   return (
     <div className="template-container">
       <h2>Miki Training</h2>
       <div>In this page I will show you some exercises</div>
       <button onClick={displayCreateForm}>Add Exercise</button>
-
-      <div>
+        <div>
         {exercises.map((exercise, index) => (
-          <div key={exercise.id}>
-            <Exercise
-              image={exercise.image}
-              title={exercise.title}
-              description={exercise.description}
-              value={exercise.value}
-              type={exercise.type}
+          <div key={exercise.id} 
+          id={exercise.id} 
+          className={exercise.completed === true ? "green" : "default"}
+          onDoubleClick={() =>doubleClick(exercise)}
+          >
+            <Exercise 
+             {...exercise}
             />
             <button onClick={() => openPopUp(exercise.id)}>Delete</button>
             <button onClick={() =>handleEdit(exercise.id)}>Edit</button>
           </div>
         ))}
-      </div>
-
+        </div>
       {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
-
       {editForm && <ExerciseFormEdit hideEditForm={hideEditForm} handleEditSubmit={handleEditSubmit} currentExercise={currentExercise}/>}
       {displayPopUp && <RemovePopUp closePopUp={closePopUp} deleteExercise={removeExercise} exerciseId={exerciseId}/>}
     </div>
