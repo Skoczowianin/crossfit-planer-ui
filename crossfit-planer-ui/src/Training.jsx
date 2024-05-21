@@ -14,15 +14,7 @@ const Training = () => {
   const [createForm, setCreateForm] = useState(false);
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [exerciseId, setExerciseId] = useState(null);
-  const [color, setColor] = useState("");
-
-
-  useEffect(() => {
-    if (color) {
-      document.getElementById(`changeColor-${exerciseId}`).style.background = color;
-    } 
-  }, [color, exerciseId]);
-
+ 
   useEffect(() => {
     setExercises(loadStorage());
   }, []);
@@ -131,7 +123,7 @@ const Training = () => {
         <div>
         {exercises.map((exercise, index) => (
           <div key={exercise.id} 
-          id={`changeColor-${exercise.id}`} 
+          id={exercise.id} 
           className={exercise.completed === true ? "green" : "default"}
           onDoubleClick={() =>doubleClick(exercise)}
           >
