@@ -1,0 +1,29 @@
+.training-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .tasklist{
+    max-width: 300px;
+  }
+  
+  .tasklist-task {
+    display: flex;
+    background-color:black;
+    align-items: center;
+    padding:10px;
+  }
+  .tasklist-name{
+    flex:1;
+  }
+  .tasklist-description{
+    flex:2;
+  }
+  .tasklist-edit {
+    flex:1;
+  }
+  .tasklist-header {
+    background-color:gray;
+    font-weight: bold;
+  }
