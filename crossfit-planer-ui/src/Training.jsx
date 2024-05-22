@@ -5,6 +5,7 @@ import ExerciseFormEdit from "./ExerciseFormEdit";
 import { loadStorage, saveExercises } from "./LocalStorageSetup";
 import RemovePopUp from "./RemovePopUp";
 import "./template.css";
+import Timer from "./Timer";
 
 const Training = () => {
 
@@ -14,6 +15,7 @@ const Training = () => {
   const [createForm, setCreateForm] = useState(false);
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [exerciseId, setExerciseId] = useState(null);
+  
  
   useEffect(() => {
     setExercises(loadStorage());
@@ -115,6 +117,14 @@ const Training = () => {
   setExercises(updatedExercises);
   saveExercises(updatedExercises)
 }
+
+function timerStart() {
+  const intervalNumber = setInterval(()=>console.log("asda"), 1000)
+}
+
+function timerStop() {
+  clearInterval(intervalNumber)
+}
   return (
     <div className="template-container">
       <h2>Miki Training</h2>
@@ -134,6 +144,9 @@ const Training = () => {
             <button onClick={() =>handleEdit(exercise.id)}>Edit</button>
           </div>
         ))}
+        </div>
+        <div>
+          <Timer timerStart={timerStart} />
         </div>
       {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
       {editForm && <ExerciseFormEdit hideEditForm={hideEditForm} handleEditSubmit={handleEditSubmit} currentExercise={currentExercise}/>}
