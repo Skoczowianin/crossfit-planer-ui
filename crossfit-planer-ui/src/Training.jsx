@@ -17,11 +17,11 @@ const Training = () => {
   const [exerciseId, setExerciseId] = useState(null);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [intervalNumber, setIntervalNumber] = useState(undefined);
-  
  
   useEffect(() => {
     setExercises(loadStorage());
   }, []);
+
 
   //create form
   function displayCreateForm() {
@@ -124,15 +124,16 @@ const Training = () => {
 
 function timerStart() {
   setIsTimerRunning(true);
-  const intervalNumber = setInterval(()=>console.log("Timer is running..."), 1000)
+  const intervalNumber = setInterval(ziemniak, 1000)
   setIntervalNumber(intervalNumber);
-  console.log(intervalNumber);
+  console.log(elapsed);
 }
 
 function timerStop() {
+  console.log(intervalNumber)
   clearInterval(intervalNumber)
   setIsTimerRunning(false);
-  console.log(intervalNumber)
+  
 }
   return (
     <div className="template-container">
