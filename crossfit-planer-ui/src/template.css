@@ -31,3 +31,6 @@ input,select {
 .default {
   background-color: #574d4d;
 }
+.aqua {
+  background-color: rgb(31, 39, 159);
+}

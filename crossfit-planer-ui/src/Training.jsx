@@ -15,6 +15,8 @@ const Training = () => {
   const [createForm, setCreateForm] = useState(false);
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [exerciseId, setExerciseId] = useState(null);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [intervalNumber, setIntervalNumber] = useState(undefined);
   
  
   useEffect(() => {
@@ -118,12 +120,19 @@ const Training = () => {
   saveExercises(updatedExercises)
 }
 
+
+
 function timerStart() {
-  const intervalNumber = setInterval(()=>console.log("asda"), 1000)
+  setIsTimerRunning(true);
+  const intervalNumber = setInterval(()=>console.log("Timer is running..."), 1000)
+  setIntervalNumber(intervalNumber);
+  console.log(intervalNumber);
 }
 
 function timerStop() {
   clearInterval(intervalNumber)
+  setIsTimerRunning(false);
+  console.log(intervalNumber)
 }
   return (
     <div className="template-container">
@@ -134,7 +143,7 @@ function timerStop() {
         {exercises.map((exercise, index) => (
           <div key={exercise.id} 
           id={exercise.id} 
-          className={exercise.completed === true ? "green" : "default"}
+          className={exercise.completed === true ? "green" : isTimerRunning ? "aqua" : "default"}
           onDoubleClick={() =>doubleClick(exercise)}
           >
             <Exercise 
@@ -146,7 +155,7 @@ function timerStop() {
         ))}
         </div>
         <div>
-          <Timer timerStart={timerStart} />
+          <Timer timerStart={timerStart} timerStop={timerStop}/>
         </div>
       {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
       {editForm && <ExerciseFormEdit hideEditForm={hideEditForm} handleEditSubmit={handleEditSubmit} currentExercise={currentExercise}/>}

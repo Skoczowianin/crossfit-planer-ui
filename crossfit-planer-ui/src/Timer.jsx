@@ -1,12 +1,22 @@
 import React, { useState } from 'react'
 
-const Timer = ({timerStart}) => {
-    const [intervalNumber, setIntervalNumber] = useState("");
+const Timer = ({timerStart, timerStop}) => {
+    const [isRunning, setIsRunning] = useState(false);
+
+    function handleStart() {
+        setIsRunning(true);
+        timerStart();
+    }
+    function handleStop() {
+        setIsRunning(false)
+        timerStop();
+    }
   return (
     <div>
-       <button onClick={timerStart}>START</button>
+       <button onClick={handleStart} disabled={isRunning}>START</button>
+       <button onClick={handleStop} disabled={!isRunning}>STOP</button>
     </div>
   )
 }
 
-export default Timer
+export default Timer;
