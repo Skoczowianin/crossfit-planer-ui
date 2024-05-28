@@ -17,11 +17,10 @@ const Training = () => {
   const [exerciseId, setExerciseId] = useState(null);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [intervalNumber, setIntervalNumber] = useState(undefined);
- 
+
   useEffect(() => {
     setExercises(loadStorage());
   }, []);
-
 
   //create form
   function displayCreateForm() {

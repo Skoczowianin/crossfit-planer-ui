@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./exercise.css";
 
 const Exercise = ({ title, description, image, value, type, onDoubleClick, completed}) => {
-  const [timerId, setTimerId] = useState(undefined);
-  const [elapsed, setElapsed] = useState(5);
+  const refTimerId = useRef(null);
+  const elapsed = useRef(5)
 
 
   function tick() {
-    console.log(elapsed);
-    if(elapsed === 0) {
-      return clearInterval(timerId)
+    
+    if(elapsed.current === 0) {
+      console.log("Clear interval")
+      return clearInterval(refTimerId.current)
     }
-    let currentElapsed = elapsed-1;
-    setElapsed(currentElapsed);
+    console.log("ELAPSED...", elapsed);
+    let currentElapsed = elapsed.current-1;
+    elapsed.current = currentElapsed
     console.log("Timer is running...", currentElapsed) 
   }
 
   function startTimer() {
    let currentTimerId = setInterval(tick, 1000);
-   setTimerId(currentTimerId);
+   refTimerId.current = currentTimerId;
    console.log("timer started")
   }
   
   useEffect(() => {
     return () =>{
-      clearInterval(timerId)
-      setTimerId(undefined);
+      clearInterval(refTimerId.current)
+      refTimerId.current = null;
     }
   },[])
   return (
