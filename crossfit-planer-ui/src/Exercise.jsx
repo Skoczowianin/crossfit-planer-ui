@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import "./exercise.css";
 
 const Exercise = ({ title, description, image, value, type, onDoubleClick, completed}) => {
+  console.log('rerender')
   const refTimerId = useRef(null);
-  const elapsed = useRef(5)
+  const elapsed = useRef(value)
 
 
   function tick() {
@@ -37,7 +38,7 @@ const Exercise = ({ title, description, image, value, type, onDoubleClick, compl
       </div>
       <div>{title}</div>
       <div>{description}</div>
-      <div>{value}</div>
+      <div>{elapsed.current}</div>
       <div>{type}</div>
       <div>{completed === true ? "✓" : "X"}</div>
       <button onClick={startTimer}>START</button>
