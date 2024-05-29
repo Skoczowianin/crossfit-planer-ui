@@ -119,10 +119,13 @@ const Training = () => {
 
 
   return (
-    <div className="template-container">
+    <div className="training-container">
+      <div className="training-header">
       <h2>Miki Training</h2>
       <div>In this page I will show you some exercises</div>
       <button onClick={displayCreateForm}>Add Exercise</button>
+      </div>
+      <div className="training-body">
         <div>
         {exercises.map((exercise, index) => (
           <div key={exercise.id} 
@@ -137,9 +140,11 @@ const Training = () => {
           </div>
         ))}
         </div>
+
       {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
       {editForm && <ExerciseFormEdit hideEditForm={hideEditForm} handleEditSubmit={handleEditSubmit} currentExercise={currentExercise}/>}
       {displayPopUp && <RemovePopUp closePopUp={closePopUp} deleteExercise={removeExercise} exerciseId={exerciseId}/>}
+      </div>
     </div>
   );
 };
