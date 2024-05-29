@@ -25,6 +25,7 @@ const Exercise = ({ title, description, image, value, type, onDoubleClick, compl
    let currentTimerId = setInterval(tick, 1000);
    refTimerId.current = currentTimerId;
    console.log("timer started")
+   
   }
   
   function stopTimer() {
@@ -38,8 +39,15 @@ const Exercise = ({ title, description, image, value, type, onDoubleClick, compl
       refTimerId.current = null;
     }
   },[])
+
+
+  let color = completed === true ? "green" : isTimerRunning ? "aqua" : "default"
+
+  let className = `exercise ${color}`;
+
+
   return (
-    <div className="exercise" onDoubleClick={onDoubleClick}>
+    <div className={className} onDoubleClick={onDoubleClick}>
       <div>
         <img src={image}></img>
       </div>
