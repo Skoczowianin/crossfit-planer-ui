@@ -10,13 +10,11 @@ const Exercise = ({ title, description, image, value, type, onDoubleClick, compl
   function tick() {
     
     if(elapsed.current === 0) {
-      console.log("Clear interval")
       return clearInterval(refTimerId.current)
     }
     console.log("ELAPSED...", elapsed);
     let currentElapsed = elapsed.current-1;
     elapsed.current = currentElapsed
-    console.log("Timer is running...",elapsed.current) 
     setElapsedTimer(elapsed.current)
   }
 
@@ -24,8 +22,6 @@ const Exercise = ({ title, description, image, value, type, onDoubleClick, compl
    setIsTimerRunning(true) 
    let currentTimerId = setInterval(tick, 1000);
    refTimerId.current = currentTimerId;
-   console.log("timer started")
-   
   }
   
   function stopTimer() {
@@ -41,7 +37,7 @@ const Exercise = ({ title, description, image, value, type, onDoubleClick, compl
   },[])
 
 
-  let color = completed === true ? "green" : isTimerRunning ? "aqua" : "default"
+  let color = completed === true ? "exercise-green" : isTimerRunning ? "exercise-aqua" : "exercise-default"
 
   let className = `exercise ${color}`;
 

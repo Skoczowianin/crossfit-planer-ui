@@ -1,18 +1,15 @@
 .exercise {
     display: flex;
     align-items: center;
-    
 }
 .exercise div {
     padding: 5px;
 }
 
-
-
 img {
     width: 150px;
     height: 150px;
 }
-.aqua {
+.exercise-aqua {
     background-color: aqua;
 }
