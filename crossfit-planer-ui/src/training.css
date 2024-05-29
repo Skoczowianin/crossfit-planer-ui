@@ -25,12 +25,3 @@
 input,select {
   margin-left: 40px;
 }
-.exercise-green {
-  background-color: green;
-}
-.exercise-default {
-  background-color: #574d4d;
-}
-.exercise-aqua {
-  background-color: rgb(31, 39, 159);
-}

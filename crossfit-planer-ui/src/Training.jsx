@@ -4,7 +4,7 @@ import ExerciseFormCreate from "./ExerciseFormCreate";
 import ExerciseFormEdit from "./ExerciseFormEdit";
 import { loadStorage, saveExercises } from "./LocalStorageSetup";
 import RemovePopUp from "./RemovePopUp";
-import "./template.css";
+import "./training.css";
 
 const Training = () => {
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import "./template.css";
+import "./training.css";
 
 const ExerciseFormEdit = ({handleEditSubmit, hideEditForm, currentExercise}) => {
   return (
