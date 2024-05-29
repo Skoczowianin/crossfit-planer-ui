@@ -4,7 +4,7 @@ import ExerciseFormCreate from "./ExerciseFormCreate";
 import ExerciseFormEdit from "./ExerciseFormEdit";
 import { loadStorage, saveExercises } from "./LocalStorageSetup";
 import RemovePopUp from "./RemovePopUp";
-import "./template.css";
+import "./training.css";
 
 const Training = () => {
 
@@ -14,7 +14,7 @@ const Training = () => {
   const [createForm, setCreateForm] = useState(false);
   const [displayPopUp, setDisplayPopUp] = useState(false);
   const [exerciseId, setExerciseId] = useState(null);
- 
+
   useEffect(() => {
     setExercises(loadStorage());
   }, []);
@@ -115,16 +115,21 @@ const Training = () => {
   setExercises(updatedExercises);
   saveExercises(updatedExercises)
 }
+
+
+
   return (
-    <div className="template-container">
+    <div className="training-container">
+      <div className="training-header">
       <h2>Miki Training</h2>
       <div>In this page I will show you some exercises</div>
       <button onClick={displayCreateForm}>Add Exercise</button>
+      </div>
+      <div className="training-body">
         <div>
         {exercises.map((exercise, index) => (
           <div key={exercise.id} 
           id={exercise.id} 
-          className={exercise.completed === true ? "green" : "default"}
           onDoubleClick={() =>doubleClick(exercise)}
           >
             <Exercise 
@@ -135,9 +140,11 @@ const Training = () => {
           </div>
         ))}
         </div>
+
       {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
       {editForm && <ExerciseFormEdit hideEditForm={hideEditForm} handleEditSubmit={handleEditSubmit} currentExercise={currentExercise}/>}
       {displayPopUp && <RemovePopUp closePopUp={closePopUp} deleteExercise={removeExercise} exerciseId={exerciseId}/>}
+      </div>
     </div>
   );
 };

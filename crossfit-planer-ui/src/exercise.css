@@ -1,15 +1,21 @@
 .exercise {
     display: flex;
     align-items: center;
-    
 }
 .exercise div {
     padding: 5px;
 }
 
-
-
-img {
+.exercise img {
     width: 150px;
     height: 150px;
+}
+.exercise-green {
+    background-color: green;
+}
+.exercise-default {
+    background-color: #574d4d;
+}
+.exercise-aqua {
+    background-color: rgb(31, 39, 159);
 }

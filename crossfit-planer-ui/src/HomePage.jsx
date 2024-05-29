@@ -5,7 +5,7 @@ import "./HomePage.css";
 const HomePage = () => {
   return (
     <div className="homepage-container">
-      <Link to="/template">
+      <Link to="/training">
         <span>Training</span>
       </Link>
       <Link to="/exercise">
