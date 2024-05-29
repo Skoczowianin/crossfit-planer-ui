@@ -137,8 +137,6 @@ const Training = () => {
           </div>
         ))}
         </div>
-        <div>
-        </div>
       {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
       {editForm && <ExerciseFormEdit hideEditForm={hideEditForm} handleEditSubmit={handleEditSubmit} currentExercise={currentExercise}/>}
       {displayPopUp && <RemovePopUp closePopUp={closePopUp} deleteExercise={removeExercise} exerciseId={exerciseId}/>}

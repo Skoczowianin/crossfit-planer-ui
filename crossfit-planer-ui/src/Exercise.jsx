@@ -12,7 +12,6 @@ const Exercise = ({ title, description, image, value, type, onDoubleClick, compl
     if(elapsed.current === 0) {
       return clearInterval(refTimerId.current)
     }
-    console.log("ELAPSED...", elapsed);
     let currentElapsed = elapsed.current-1;
     elapsed.current = currentElapsed
     setElapsedTimer(elapsed.current)
