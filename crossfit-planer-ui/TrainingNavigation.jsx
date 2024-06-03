@@ -1,27 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import "./trainingNavigation.css";
 
 const TrainingNavigation = () => {
-    const [buttonName, setButtonName] = useState("START TRAINING");
+    const textPause = "PAUSE TRAINING"
+    const textContinue = "CONTINUE TRAINING"
+    const textStart = "START TRAINING"
+    const [startButton, setStartButton] = useState(textStart);
 
     function startTraining() {
-        let btnName = "PAUSE TRAINING"
-        setButtonName(btnName)
+        setStartButton(textPause)
 
-        if(buttonName === "PAUSE TRAINING") {
+        if(startButton === textPause) {
             continueTraining();
         }
     }
     function continueTraining() {
-        let btnName2 = "CONTINUE TRAINING"
-        setButtonName(btnName2)
+        setStartButton(textContinue)
     }
     function stopTraining() {
-        let defaultName = "START TRAINING"
-        setButtonName(defaultName)
+        setStartButton(textStart)
     }
   return (
-    <div>
-        <button onClick={startTraining}>{buttonName}</button>
+    <div className='training-navigation'>
+        <button onClick={startTraining}>{startButton}</button>
         <button onClick={stopTraining}>STOP TRAINING</button>
     </div>
   )
