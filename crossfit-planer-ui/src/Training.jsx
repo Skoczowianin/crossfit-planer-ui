@@ -4,6 +4,7 @@ import ExerciseFormCreate from "./ExerciseFormCreate";
 import ExerciseFormEdit from "./ExerciseFormEdit";
 import { loadStorage, saveExercises } from "./LocalStorageSetup";
 import RemovePopUp from "./RemovePopUp";
+import TrainingNavigation from "../TrainingNavigation";
 import "./training.css";
 
 const Training = () => {
@@ -144,6 +145,8 @@ const Training = () => {
       {createForm && <ExerciseFormCreate hideCreateForm={hideCreateForm} handleCreateExercise={handleCreateExercise} />}
       {editForm && <ExerciseFormEdit hideEditForm={hideEditForm} handleEditSubmit={handleEditSubmit} currentExercise={currentExercise}/>}
       {displayPopUp && <RemovePopUp closePopUp={closePopUp} deleteExercise={removeExercise} exerciseId={exerciseId}/>}
+      <br />
+      <TrainingNavigation />
       </div>
     </div>
   );
