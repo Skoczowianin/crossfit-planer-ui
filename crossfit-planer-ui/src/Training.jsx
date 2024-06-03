@@ -126,6 +126,7 @@ const Training = () => {
       <div>In this page I will show you some exercises</div>
       <button onClick={displayCreateForm}>Add Exercise</button>
       </div>
+      <TrainingNavigation />
       <div className="training-body">
         <div>
         {exercises.map((exercise, index) => (
@@ -134,6 +135,7 @@ const Training = () => {
           onDoubleClick={() =>doubleClick(exercise)}
           >
             <Exercise 
+            
              {...exercise}
             />
             <button onClick={() => openPopUp(exercise.id)}>Delete</button>
@@ -146,7 +148,7 @@ const Training = () => {
       {editForm && <ExerciseFormEdit hideEditForm={hideEditForm} handleEditSubmit={handleEditSubmit} currentExercise={currentExercise}/>}
       {displayPopUp && <RemovePopUp closePopUp={closePopUp} deleteExercise={removeExercise} exerciseId={exerciseId}/>}
       
-      <TrainingNavigation />
+      
       </div>
     </div>
   );

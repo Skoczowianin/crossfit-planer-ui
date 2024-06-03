@@ -1,3 +1,8 @@
 .training-navigation {
-    margin-top: 15px;
+    margin-top: 15px;  
+    text-align: center;
+}
+.training-status {
+    font-size: 20px;
+    font-weight: bold;
 }
