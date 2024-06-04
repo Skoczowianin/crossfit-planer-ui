@@ -9,8 +9,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    defaults: 
-      working-directory: ./crossfit-planer-ui
+    defaults:
+      run:
+        working-directory: ./crossfit-planer-ui
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
